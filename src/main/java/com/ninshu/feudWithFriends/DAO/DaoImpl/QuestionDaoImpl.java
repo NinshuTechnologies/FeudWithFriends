@@ -2,10 +2,7 @@ package com.ninshu.feudWithFriends.DAO.DaoImpl;
 
 import com.ninshu.feudWithFriends.DAO.DaoInterface.QuestionDao;
 import com.ninshu.feudWithFriends.Entities.Question;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

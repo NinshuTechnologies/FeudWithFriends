@@ -2,8 +2,10 @@ package com.ninshu.feudWithFriends.Controllers;
 
 import com.ninshu.feudWithFriends.Entities.AnswerList;
 import com.ninshu.feudWithFriends.Entities.Question;
+import com.ninshu.feudWithFriends.Entities.User;
 import com.ninshu.feudWithFriends.Services.ServiceInterface.AnswerService;
 import com.ninshu.feudWithFriends.Services.ServiceInterface.QuestionService;
+import com.ninshu.feudWithFriends.Services.ServiceInterface.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,9 @@ public class BaseController {
 
     @Autowired
     private AnswerService answerService;
+
+    @Autowired
+    private UserService userService;
     //---------------------------------Questions---------------------------------
 
     @GetMapping("/question/{id}")
@@ -45,5 +50,17 @@ public class BaseController {
     @GetMapping("/answers")
     public List<AnswerList> getAllAnswers() {
         return answerService.getAllAnswers();
+    }
+
+    //---------------------------------Users--------------------------------------
+
+    @GetMapping("/user/{id}")
+    public User getUserById(@PathVariable int id) {
+        return userService.getUserById(id);
+    }
+
+    @GetMapping("/user")
+    public User getRandomActiveUser() {
+        return userService.getRandomActiveUser();
     }
 }
