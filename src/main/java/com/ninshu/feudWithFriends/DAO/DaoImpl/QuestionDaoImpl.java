@@ -39,4 +39,11 @@ public class QuestionDaoImpl implements QuestionDao {
         Question question =  (Question) query.getSingleResult();
         return question;
     }
+
+    @Override
+    public int addQuestion(Question question) {
+        Session session = entityManager.unwrap(Session.class);
+        int id = (int) session.save(question);
+        return id;
+    }
 }

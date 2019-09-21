@@ -7,4 +7,5 @@ import java.util.List;
 public interface AnswerDao {
     public AnswerList getAnswerById(int id);
     public List<AnswerList> getAllAnswers();
+    public int addAnswerList(AnswerList answerList);
 }

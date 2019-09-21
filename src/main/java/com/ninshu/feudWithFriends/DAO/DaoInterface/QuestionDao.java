@@ -9,4 +9,5 @@ public interface QuestionDao {
     public Question getRandomQuestion();
 
     public List<Question> getAllQuestions();
+    public int addQuestion(Question question);
 }

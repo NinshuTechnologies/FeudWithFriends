@@ -26,4 +26,10 @@ public class AnswerServiceImpl implements AnswerService {
     public List<AnswerList> getAllAnswers() {
         return answerDao.getAllAnswers();
     }
+
+    @Override
+    @Transactional
+    public int addAnswerList(AnswerList answerList) {
+        return answerDao.addAnswerList(answerList);
+    }
 }
