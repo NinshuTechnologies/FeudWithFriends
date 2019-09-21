@@ -32,4 +32,11 @@ public class AnswerDaoImpl implements AnswerDao {
         Query query = session.createQuery("from AnswerList", AnswerList.class);
         return query.getResultList();
     }
+
+    @Override
+    public int addAnswerList(AnswerList answerList) {
+    Session session = entityManager.unwrap(Session.class);
+        int id = (int) session.save(answerList);
+        return id;
+    }
 }

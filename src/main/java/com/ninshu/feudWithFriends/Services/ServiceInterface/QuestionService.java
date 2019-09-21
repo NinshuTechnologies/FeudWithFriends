@@ -9,4 +9,5 @@ public interface QuestionService {
     public Question getQuestionById(int id);
     public List<Question> getAllQuestions();
     public Question getRandomQuestion();
+    public int addQuestion(Question question);
 }

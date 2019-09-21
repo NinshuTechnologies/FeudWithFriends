@@ -31,8 +31,14 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     @Transactional
     public Question getRandomQuestion() {
-//        int questionsCount = questionDao.getQuestionsCount();
-//        int randomQuestionId =  new Random().nextInt(questionsCount+1);
         return questionDao.getRandomQuestion();
     }
+
+    @Override
+    @Transactional
+    public int addQuestion(Question question) {
+        return questionDao.addQuestion(question);
+    }
+
+
 }
