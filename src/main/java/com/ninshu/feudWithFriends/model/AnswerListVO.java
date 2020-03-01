@@ -1,17 +1,9 @@
-package com.ninshu.feudWithFriends;
+package com.ninshu.feudWithFriends.model;
 
-import com.ninshu.feudWithFriends.Entities.AnswerList;
-import com.ninshu.feudWithFriends.Entities.Question;
-
-import javax.persistence.*;
 import java.util.Objects;
 
 public class AnswerListVO {
         private int uid;
-
-        private String createdTime;
-
-        private String modifiedTime;
 
         private String answerWords;
 
@@ -31,22 +23,6 @@ public class AnswerListVO {
 
     public void setUid(int uid) {
         this.uid = uid;
-    }
-
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getModifiedTime() {
-        return modifiedTime;
-    }
-
-    public void setModifiedTime(String modifiedTime) {
-        this.modifiedTime = modifiedTime;
     }
 
     public String getAnswerWords() {
@@ -101,8 +77,6 @@ public class AnswerListVO {
     public String toString() {
         return "AnswerListVO{" +
                 "uid=" + uid +
-                ", createdTime='" + createdTime + '\'' +
-                ", modifiedTime='" + modifiedTime + '\'' +
                 ", answerWords='" + answerWords + '\'' +
                 ", originalAnswerType='" + originalAnswerType + '\'' +
                 ", currentAnswerType='" + currentAnswerType + '\'' +
@@ -120,8 +94,6 @@ public class AnswerListVO {
         return uid == that.uid &&
                 rank == that.rank &&
                 hits == that.hits &&
-                Objects.equals(createdTime, that.createdTime) &&
-                Objects.equals(modifiedTime, that.modifiedTime) &&
                 Objects.equals(answerWords, that.answerWords) &&
                 Objects.equals(originalAnswerType, that.originalAnswerType) &&
                 Objects.equals(currentAnswerType, that.currentAnswerType) &&
@@ -130,6 +102,6 @@ public class AnswerListVO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, createdTime, modifiedTime, answerWords, originalAnswerType, currentAnswerType, rank, hits, displayAnswer);
+        return Objects.hash(uid,answerWords, originalAnswerType, currentAnswerType, rank, hits, displayAnswer);
     }
 }

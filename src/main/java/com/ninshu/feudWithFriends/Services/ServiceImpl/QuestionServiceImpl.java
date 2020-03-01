@@ -3,6 +3,7 @@ package com.ninshu.feudWithFriends.Services.ServiceImpl;
 import com.ninshu.feudWithFriends.DAO.DaoInterface.QuestionDao;
 import com.ninshu.feudWithFriends.Entities.Question;
 import com.ninshu.feudWithFriends.Services.ServiceInterface.QuestionService;
+import com.ninshu.feudWithFriends.model.QuestionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public Question getRandomQuestion() {
+    public QuestionVO getRandomQuestion() {
         return questionDao.getRandomQuestion();
     }
 
