@@ -1,6 +1,7 @@
 package com.ninshu.feudWithFriends.Entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "answer_list")
@@ -35,8 +36,9 @@ public class AnswerList {
     @Column(name = "display_answer")
     private String displayAnswer;
 
-    @Column(name = "question_reference_id")
-    private long questionReferenceId;
+    @ManyToOne
+    @JoinColumn(name = "question_reference_id")
+    private Question question;
 
 
     public int getUid() {
@@ -119,13 +121,49 @@ public class AnswerList {
         this.displayAnswer = displayAnswer;
     }
 
-
-    public long getQuestionReferenceId() {
-        return questionReferenceId;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setQuestionReferenceId(long questionReferenceId) {
-        this.questionReferenceId = questionReferenceId;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
+    @Override
+    public String toString() {
+        return "AnswerList{" +
+                "uid=" + uid +
+                ", createdTime='" + createdTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                ", answerWords='" + answerWords + '\'' +
+                ", originalAnswerType='" + originalAnswerType + '\'' +
+                ", currentAnswerType='" + currentAnswerType + '\'' +
+                ", rank=" + rank +
+                ", hits=" + hits +
+                ", displayAnswer='" + displayAnswer + '\'' +
+                ", question=" + question +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AnswerList that = (AnswerList) o;
+        return uid == that.uid &&
+                rank == that.rank &&
+                hits == that.hits &&
+                Objects.equals(createdTime, that.createdTime) &&
+                Objects.equals(modifiedTime, that.modifiedTime) &&
+                Objects.equals(answerWords, that.answerWords) &&
+                Objects.equals(originalAnswerType, that.originalAnswerType) &&
+                Objects.equals(currentAnswerType, that.currentAnswerType) &&
+                Objects.equals(displayAnswer, that.displayAnswer) &&
+                Objects.equals(question, that.question);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, createdTime, modifiedTime, answerWords, originalAnswerType, currentAnswerType, rank, hits, displayAnswer, question);
+    }
 }

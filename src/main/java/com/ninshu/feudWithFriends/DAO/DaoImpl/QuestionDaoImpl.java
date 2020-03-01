@@ -2,6 +2,8 @@ package com.ninshu.feudWithFriends.DAO.DaoImpl;
 
 import com.ninshu.feudWithFriends.DAO.DaoInterface.QuestionDao;
 import com.ninshu.feudWithFriends.Entities.Question;
+import com.ninshu.feudWithFriends.Utilities.MapperUtility;
+import com.ninshu.feudWithFriends.model.QuestionVO;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +35,12 @@ public class QuestionDaoImpl implements QuestionDao {
     }
 
     @Override
-    public Question getRandomQuestion() {
+    public QuestionVO getRandomQuestion() {
         Session session = entityManager.unwrap(Session.class);
         Query query =  session.createQuery("from Question ORDER BY rand()").setMaxResults(1);
         Question question =  (Question) query.getSingleResult();
-        return question;
+        QuestionVO questionVO = MapperUtility.mapQuestionVO(question);
+        return questionVO;
     }
 
     @Override

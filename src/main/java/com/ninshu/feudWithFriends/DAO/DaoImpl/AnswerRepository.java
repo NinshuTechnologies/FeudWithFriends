@@ -1,4 +1,8 @@
 package com.ninshu.feudWithFriends.DAO.DaoImpl;
 
-public class AnswerRepository {
+import com.ninshu.feudWithFriends.Entities.AnswerList;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AnswerRepository extends JpaRepository<AnswerList, Integer> {
+
 }
