@@ -22,6 +22,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 
 import javax.ws.rs.core.Response;
 import java.io.*;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,12 +45,12 @@ public class BaseController {
     //---------------------------------Questions---------------------------------
 
     @GetMapping("/question/{id}")
-    public Question getQuestionById(@PathVariable int id) {
+    public QuestionVO getQuestionById(@PathVariable int id) {
         return questionService.getQuestionById(id);
     }
 
     @GetMapping("/questions")
-    public List<Question> getAllQuestions() {
+    public List<QuestionVO> getAllQuestions() {
         return questionService.getAllQuestions();
     }
 
@@ -119,7 +120,7 @@ public class BaseController {
                     questionId = questionService.addQuestion(question);
                 }
                 AnswerList answer = new AnswerList();
-                answer.getQuestion().setUid(questionId);
+                answer.setQuestionReferrenceId(questionId);
                 answer.setCurrentAnswerType(AnswerType.PRIVILEGED.toString());
                 answer.setOriginalAnswerType(AnswerType.PRIVILEGED.toString());
                 answer.setDisplayAnswer(sheet.getRow(i).getCell(2).getStringCellValue());

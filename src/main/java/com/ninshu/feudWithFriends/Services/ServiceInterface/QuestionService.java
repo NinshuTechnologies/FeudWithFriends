@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface QuestionService {
-    public Question getQuestionById(int id);
-    public List<Question> getAllQuestions();
+    public QuestionVO getQuestionById(int id);
+    public List<QuestionVO> getAllQuestions();
     public QuestionVO getRandomQuestion();
     public int addQuestion(Question question);
 }
