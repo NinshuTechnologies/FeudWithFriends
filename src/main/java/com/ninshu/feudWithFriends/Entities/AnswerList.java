@@ -36,6 +36,9 @@ public class AnswerList {
     @Column(name = "display_answer")
     private String displayAnswer;
 
+    @Column(name = "question_reference_id", insertable = false, updatable = false)
+    private int questionReferrenceId;
+
     @ManyToOne
     @JoinColumn(name = "question_reference_id")
     private Question question;
@@ -123,6 +126,14 @@ public class AnswerList {
 
     public Question getQuestion() {
         return question;
+    }
+
+    public int getQuestionReferrenceId() {
+        return questionReferrenceId;
+    }
+
+    public void setQuestionReferrenceId(int questionReferrenceId) {
+        this.questionReferrenceId = questionReferrenceId;
     }
 
     public void setQuestion(Question question) {

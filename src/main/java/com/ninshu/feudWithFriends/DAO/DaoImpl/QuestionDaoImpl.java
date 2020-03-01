@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -19,19 +20,26 @@ public class QuestionDaoImpl implements QuestionDao {
     private EntityManager entityManager;
 
     @Override
-    public Question getQuestionById(int id) {
+    public QuestionVO getQuestionById(int id) {
         Session session = entityManager.unwrap(Session.class);
         Query query =  session.createQuery("from Question where uid=:uid", Question.class);
         query.setParameter("uid", id);
         Question question =  (Question) query.getSingleResult();
-        return question;
+        QuestionVO questionVO = MapperUtility.mapQuestionVO(question);
+        return questionVO;
     }
 
     @Override
-    public List<Question> getAllQuestions() {
+    public List<QuestionVO> getAllQuestions() {
         Session session = entityManager.unwrap(Session.class);
         Query query =  session.createQuery("from Question", Question.class);
-        return query.getResultList();
+        List<Question> questions = (List<Question>)query.getResultList();
+        List<QuestionVO> questionsVO = new ArrayList<>();
+        for(Question question: questions) {
+            QuestionVO questionVO = MapperUtility.mapQuestionVO(question);
+            questionsVO.add(questionVO);
+        }
+        return questionsVO;
     }
 
     @Override

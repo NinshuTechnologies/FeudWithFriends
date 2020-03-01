@@ -6,9 +6,9 @@ import com.ninshu.feudWithFriends.model.QuestionVO;
 import java.util.List;
 
 public interface QuestionDao {
-    public Question getQuestionById(int id);
+    public QuestionVO getQuestionById(int id);
     public QuestionVO getRandomQuestion();
 
-    public List<Question> getAllQuestions();
+    public List<QuestionVO> getAllQuestions();
     public int addQuestion(Question question);
 }

@@ -19,13 +19,13 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public Question getQuestionById(int id) {
+    public QuestionVO getQuestionById(int id) {
         return questionDao.getQuestionById(id);
     }
 
     @Override
     @Transactional
-    public List<Question> getAllQuestions() {
+    public List<QuestionVO> getAllQuestions() {
         return questionDao.getAllQuestions();
     }
 
