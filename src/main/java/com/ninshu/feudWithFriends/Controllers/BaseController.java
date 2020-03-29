@@ -66,7 +66,7 @@ public class BaseController {
 
     //---------------------------------Answers------------------------------------
     @GetMapping("/answer/{id}")
-    public AnswerList getAnswerById(@PathVariable int id) {
+    public AnswerListVO getAnswerById(@PathVariable int id) {
         return answerService.getAnswerById(id);
     }
 
@@ -76,7 +76,7 @@ public class BaseController {
     }
 
     @GetMapping("/answers")
-    public List<AnswerList> getAllAnswers() {
+    public List<AnswerListVO> getAllAnswers() {
         return answerService.getAllAnswers();
     }
 
@@ -86,7 +86,7 @@ public class BaseController {
     }
 
     @GetMapping("/answer/{questionId}/{userAnswer}")
-    public String matchAnswer(@PathVariable long questionId, @PathVariable String userAnswer) {
+    public String matchAnswer(@PathVariable int questionId, @PathVariable String userAnswer) {
         return ffAnswerEngine.getAnswer(questionId, userAnswer);
     }
 
@@ -158,84 +158,5 @@ public class BaseController {
             e.printStackTrace();
         }
     }
-
-//    public static void main(String[] args) {
-//        try {
-//            FileReader fr=new FileReader("/Users/srajolia/Desktop/BidData.csv");
-//            StringBuilder str = new StringBuilder();
-//            int i;
-//            while((i=fr.read())!=-1)
-//                str.append((char)i);
-//            fr.close();
-//            String a = str.toString();
-//            List<String> list = new ArrayList<>();
-//            String[] strArr = a.split("!!!");
-//            String tempBid = "";
-//            List<String> finalStringArr = new ArrayList<>();
-//            for (int j=0; j< strArr.length; j++) {
-//                String[] cols = strArr[j].split("@@@");
-//                if(tempBid.equals("")) {
-////                    String res = cols[0] + "\t" + cols[1] + "\t" +cols[2] + "\n";
-//                    finalStringArr.add(strArr[j]);
-//                } else if(cols[0].equals(tempBid)) {
-//                    String lastEditedString = finalStringArr.get(finalStringArr.size()-1);
-//                    String[] lastStringArr = lastEditedString.split("@@@");
-//                    String updatedLastRes = lastStringArr[0] + "@@@" + lastStringArr[1] + "," + cols[1] + "@@@" + lastStringArr[2];
-//                    finalStringArr.set(finalStringArr.size()-1, updatedLastRes);
-//                } else {
-////                    String res2 = cols[0] + "\t" + cols[1] + "\t" +cols[2] + "\n";
-//                    finalStringArr.add(strArr[j]);
-//                }
-//                tempBid = cols[0];
-//            }
-//
-//            FileReader fr2=new FileReader("/Users/srajolia/Desktop/EmailDataDSV.csv");
-//            StringBuilder str2 = new StringBuilder();
-//            int i2;
-//            while((i2=fr2.read())!=-1)
-//                str2.append((char)i2);
-//            fr2.close();
-//            String a2 = str2.toString();
-//            List<String> list2 = new ArrayList<>();
-//            String[] strArr2 = a2.split("!!!");
-//            String tempBid2 = "";
-//            List<String> finalStringArr2 = new ArrayList<>();
-//            for (int j2=0; j2< strArr2.length; j2++) {
-//                finalStringArr2.add(strArr2[j2]);
-//            }
-//
-//            //merging the two files data into one
-//            //writing data to new file
-//
-//            File file = new File("/Users/srajolia/Desktop/samplefile1.csv");
-//            FileWriter fileWriter = new FileWriter(file);
-//            BufferedWriter writer = new BufferedWriter(fileWriter);
-//            writer.write("User_Group_ID\tUser_Group_Name\tBIDS\tUser_Email\tFI_Name\n");
-//            List<String> mergedData = new ArrayList<>();
-//            for(int k=0; k<finalStringArr.size(); k++) {
-//                String[] BidDataArr = finalStringArr.get(k).split("@@@");
-//                Boolean didFindEmail = false;
-//                for(int l=1; l<finalStringArr2.size(); l++) {
-//                    String[] EmailDataArr = finalStringArr2.get(l).split("@@@");
-//                    if(BidDataArr[0].equals(EmailDataArr[0])) {
-//                        String mergedRow = BidDataArr[0] + "\t" + EmailDataArr[1] + "\t" + BidDataArr[1] + "\t" + EmailDataArr[2] + "\t" + BidDataArr[2] + "\n";
-//
-//                        writer.write(mergedRow);
-//                        didFindEmail = true;
-//                        break;
-//                    }
-//                }
-//                if(!didFindEmail) {
-//                    String unmergedRow = BidDataArr[0] + "\t" + null + "\t" + BidDataArr[1] + "\t" + null + "\t" + BidDataArr[2] + "\n";
-//                    writer.write(unmergedRow);
-//                }
-//
-//            }
-//        }
-//        catch (Exception e) {
-//            System.out.println("Error syncing data from file - "+ e.getMessage());
-//        }
-//    }
-
 
 }

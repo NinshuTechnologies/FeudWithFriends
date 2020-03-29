@@ -31,7 +31,8 @@ public class FFAnswerEngine {
     private AnswerDao answerDAO;
 
     @Transactional
-    public String getAnswer( long questionID, String userAnswer) {
+    public String getAnswer( int questionID, String userAnswer) {
+        userAnswer= userAnswer.toLowerCase();
         List<AnswerList> privilegedAnswers = answerDAO.getPrivilegedAnswers(questionID);
         for (AnswerList answer : privilegedAnswers) {
             String answerArray[] = answer.getAnswerWords().split(",");
@@ -146,10 +147,10 @@ public class FFAnswerEngine {
     //this should be called if the question hits > minPoolSizeForSlottedAnswerConversion
 //    inside this we will have to reset the no of hits the question is getting so we can again start to count till survey pool size.
 //    But maintain a separate column in questions table to counts total hots on question all time.
-    public void updateAnswersBasedOnUserInputs(long questionId) {
+    public void updateAnswersBasedOnUserInputs(int questionId) {
         List<AnswerList> privilegedAnswers = answerDAO.getPrivilegedAnswers(questionId);
         updatePrivilegedAnswerRankings(privilegedAnswers);
-        promoteSlottedAnswersToPrivileged(privilegedAnswers);
+        promoteSlottedAnswersToPrivileged(questionId, privilegedAnswers);
     }
 
     private void updatePrivilegedAnswerRankings(List<AnswerList> privilegedAnswers) {
@@ -174,8 +175,8 @@ public class FFAnswerEngine {
         answerJpaRepository.saveAll(privilegedAnswers);
     }
 
-    private void promoteSlottedAnswersToPrivileged(List<AnswerList> privilegedAnswers) {
-        List<AnswerList> slottedAnswers = answerDAO.getSlottedAnswers(privilegedAnswers.get(0).getQuestion().getUid());
+    private void promoteSlottedAnswersToPrivileged(int questionId, List<AnswerList> privilegedAnswers) {
+        List<AnswerList> slottedAnswers = answerDAO.getSlottedAnswers(questionId);
         List<AnswerList> answerToBeDeleted = new ArrayList<>();
         for(AnswerList slottedAnswer: slottedAnswers) {
             if(slottedAnswer.getHits() > SLOTTED_ANSWER_PROMOTION_THRESHOLD) {
