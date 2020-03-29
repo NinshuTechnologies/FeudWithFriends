@@ -6,8 +6,8 @@ import com.ninshu.feudWithFriends.model.AnswerListVO;
 import java.util.List;
 
 public interface AnswerService {
-    public AnswerList getAnswerById(int id);
+    public AnswerListVO getAnswerById(int id);
     public List<AnswerListVO> getAnswerByQuestionId(int id);
-    public List<AnswerList> getAllAnswers();
+    public List<AnswerListVO> getAllAnswers();
     public int addAnswerList(AnswerList answerList);
 }

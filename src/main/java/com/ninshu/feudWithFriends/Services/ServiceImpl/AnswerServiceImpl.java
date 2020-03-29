@@ -18,7 +18,7 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     @Transactional
-    public AnswerList getAnswerById(int id) {
+    public AnswerListVO getAnswerById(int id) {
         return answerDao.getAnswerById(id);
     }
 
@@ -29,7 +29,7 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     @Transactional
-    public List<AnswerList> getAllAnswers() {
+    public List<AnswerListVO> getAllAnswers() {
         return answerDao.getAllAnswers();
     }
 

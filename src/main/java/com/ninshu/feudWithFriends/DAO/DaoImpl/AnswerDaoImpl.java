@@ -6,6 +6,7 @@ import com.ninshu.feudWithFriends.Entities.Question;
 import com.ninshu.feudWithFriends.Utilities.AnswerType;
 import com.ninshu.feudWithFriends.Utilities.MapperUtility;
 import com.ninshu.feudWithFriends.model.AnswerListVO;
+import org.apache.catalina.mapper.Mapper;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,12 @@ public class AnswerDaoImpl implements AnswerDao {
     private EntityManager entityManager;
 
     @Override
-    public AnswerList getAnswerById(int id) {
+    public AnswerListVO getAnswerById(int id) {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createQuery("from AnswerList where uid=:uid", AnswerList.class);
         query.setParameter("uid", id);
         AnswerList answer = (AnswerList) query.getSingleResult();
-        return answer;
+        return MapperUtility.mapAnswerVO(answer);
     }
 
     @Override
@@ -47,10 +48,16 @@ public class AnswerDaoImpl implements AnswerDao {
     }
 
     @Override
-    public List<AnswerList> getAllAnswers() {
+    public List<AnswerListVO> getAllAnswers() {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createQuery("from AnswerList", AnswerList.class);
-        return query.getResultList();
+        List<AnswerList> answers = (List<AnswerList>) query.getResultList();
+        List<AnswerListVO> answerListVOS = new ArrayList<>();
+        for(AnswerList answer: answers) {
+            AnswerListVO answerListVO = MapperUtility.mapAnswerVO(answer);
+            answerListVOS.add(answerListVO);
+        }
+        return answerListVOS;
     }
 
     @Override
@@ -61,18 +68,18 @@ public class AnswerDaoImpl implements AnswerDao {
     }
 
     @Override
-    public List<AnswerList> getPrivilegedAnswers(long questionId) {
+    public List<AnswerList> getPrivilegedAnswers(int questionId) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createQuery("from AnswerList where questionReferenceId=:questionId and currentAnswerType=:answerType");
+        Query query = session.createQuery("from AnswerList where questionReferrenceId=:questionId and currentAnswerType=:answerType");
         query.setParameter("answerType", AnswerType.PRIVILEGED.toString());
         query.setParameter("questionId", questionId);
         return query.getResultList();
     }
 
     @Override
-    public List<AnswerList> getSlottedAnswers(long questionId) {
+    public List<AnswerList> getSlottedAnswers(int questionId) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createQuery("from AnswerList where questionReferenceId=:questionId and currentAnswerType=:answerType");
+        Query query = session.createQuery("from AnswerList where questionReferrenceId=:questionId and currentAnswerType=:answerType");
         query.setParameter("answerType", AnswerType.SLOTTED.toString());
         query.setParameter("questionId", questionId);
         return query.getResultList();
