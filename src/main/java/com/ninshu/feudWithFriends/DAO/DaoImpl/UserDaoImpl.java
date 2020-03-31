@@ -30,4 +30,11 @@ public class UserDaoImpl implements UserDao {
         User user = (User) query.getSingleResult();
         return user;
     }
+    
+    @Override
+    public int createUser(User createdUser) {
+    	Session session = entityManager.unwrap(Session.class);
+    	int id = (int) session.save(createdUser);
+    	return id;
+    }
 }
