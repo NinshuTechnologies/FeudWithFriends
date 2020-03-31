@@ -1,14 +1,17 @@
 package com.ninshu.feudWithFriends.Controllers;
 
 import com.ninshu.feudWithFriends.Entities.AnswerList;
+import com.ninshu.feudWithFriends.Entities.ExperienceAndCoinData;
 import com.ninshu.feudWithFriends.Entities.Question;
 import com.ninshu.feudWithFriends.Entities.User;
 import com.ninshu.feudWithFriends.Services.ServiceImpl.FFAnswerEngine;
 import com.ninshu.feudWithFriends.Services.ServiceInterface.AnswerService;
+import com.ninshu.feudWithFriends.Services.ServiceInterface.ExperienceAndCoinService;
 import com.ninshu.feudWithFriends.Services.ServiceInterface.QuestionService;
 import com.ninshu.feudWithFriends.Services.ServiceInterface.UserService;
 import com.ninshu.feudWithFriends.Utilities.AnswerType;
 import com.ninshu.feudWithFriends.model.AnswerListVO;
+import com.ninshu.feudWithFriends.model.ExperienceAndCoinDataVO;
 import com.ninshu.feudWithFriends.model.QuestionVO;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -39,6 +42,9 @@ public class BaseController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private ExperienceAndCoinService experienceAndCoinService;
 
     @Autowired
     FFAnswerEngine ffAnswerEngine;
@@ -89,9 +95,31 @@ public class BaseController {
     public String matchAnswer(@PathVariable int questionId, @PathVariable String userAnswer) {
         return ffAnswerEngine.getAnswer(questionId, userAnswer);
     }
+    
+  	//---------------------------------Experice And Coin--------------------------------------
+    
+    @PostMapping("/createExperienceAndCoin/{userId}")
+    public ExperienceAndCoinDataVO createExperienceAndCoin(@PathVariable String userId) {
+    	return experienceAndCoinService.createExperienceAndCoin(userId);
+    }
+    
+    @GetMapping("/fetchExperienceAndCoin/{userId}")
+    public ExperienceAndCoinDataVO fetchExperienceAndCoin(@PathVariable String  userId) {
+    	return experienceAndCoinService.fetchExperienceAndCoin(userId);
+    }
+    
+    @PostMapping("/updateExperienceAndCoin")
+    public ExperienceAndCoinDataVO updateExperienceAndCoin(@RequestBody ExperienceAndCoinData experienceAndCoinData) {
+    	return experienceAndCoinService.updateExperienceAndCoin(experienceAndCoinData);
+    }
 
     //---------------------------------Users--------------------------------------
 
+//    @PostMapping("/user/createUser")
+//    public User createUser() {
+//    	return userService.createUser();
+//    }
+    
     @GetMapping("/user/{id}")
     public User getUserById(@PathVariable int id) {
         return userService.getUserById(id);
